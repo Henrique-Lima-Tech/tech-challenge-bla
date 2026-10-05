@@ -1,0 +1,21 @@
+.skeleton {
+  display: block;
+  border-radius: var(--radius-sm);
+  background: var(--color-skeleton);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.circle {
+  border-radius: 50%;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.page {
+  display: grid;
+  gap: var(--space-6);
+}

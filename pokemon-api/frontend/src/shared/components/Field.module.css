@@ -1,0 +1,46 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.control {
+  width: 100%;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.control[aria-invalid='true'] {
+  border-color: var(--color-danger);
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.hint,
+.aside {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.aside {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+}
+
+.error {
+  font-size: var(--text-sm);
+  color: var(--color-danger);
+}

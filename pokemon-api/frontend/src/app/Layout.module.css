@@ -1,0 +1,127 @@
+.skipLink {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.skipLink:focus {
+  top: var(--space-2);
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.headerInner {
+  display: grid;
+  grid-template-areas:
+    'brand user'
+    'nav nav';
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .headerInner {
+    grid-template-areas: 'brand nav user';
+    grid-template-columns: auto 1fr auto;
+    min-height: var(--header-height);
+    padding-block: 0;
+  }
+}
+
+.brand {
+  grid-area: brand;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+}
+
+.nav {
+  grid-area: nav;
+  display: flex;
+  gap: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .nav {
+    margin-left: var(--space-6);
+  }
+}
+
+.navLink {
+  padding-block: var(--space-2);
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: var(--color-text);
+}
+
+.active {
+  color: var(--color-text);
+  border-bottom-color: var(--color-primary);
+}
+
+.user {
+  grid-area: user;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.userName {
+  max-width: 8rem;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .userName {
+    max-width: 16rem;
+  }
+}
+
+.main {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4) var(--space-12);
+}
+
+.main:focus {
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding-inline: var(--space-6);
+  }
+}

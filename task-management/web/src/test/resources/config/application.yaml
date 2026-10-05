@@ -1,0 +1,12 @@
+# Spring Boot loads classpath:/config/application.yaml on top of the main application.yaml, so every
+# web test gets H2 in memory and no demonstration data without activating a profile.
+spring:
+  datasource:
+    url: jdbc:h2:mem:task-management;DB_CLOSE_DELAY=-1
+  flyway:
+    locations: classpath:db/migration
+
+security:
+  jwt:
+    # Test-only key, never used outside the test classpath
+    secret: test-only-secret-with-at-least-32-bytes!

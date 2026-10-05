@@ -1,0 +1,19 @@
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+
+# Build and dependencies
+target/
+node_modules/
+dist/
+
+# Local environment files (.env.example files are versioned)
+.env
+
+# Challenge statement, kept out of the repository
+tech-challenge.pdf
+/out/

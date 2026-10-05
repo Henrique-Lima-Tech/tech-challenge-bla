@@ -1,0 +1,25 @@
+services:
+  backend:
+    build: ./backend
+    image: tech-challenge-backend
+    ports:
+      - "8080:8080"
+    volumes:
+      # H2 in file mode (D-12): data survives container re-creation
+      - h2-data:/app/data
+      # Simulated vault: each file is a property (vault/JWT_SECRET -> security.jwt.secret)
+      - ./backend/vault:/app/vault:ro
+
+  frontend:
+    build: ./frontend
+    image: tech-challenge-frontend
+    ports:
+      - "3000:80"
+    environment:
+      # Nginx serves the SPA and forwards /api to the backend service (same origin, no CORS)
+      BACKEND_URL: http://backend:8080
+    depends_on:
+      - backend
+
+volumes:
+  h2-data:

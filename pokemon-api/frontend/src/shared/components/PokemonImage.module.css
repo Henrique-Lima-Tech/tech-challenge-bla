@@ -1,0 +1,20 @@
+.image,
+.placeholder {
+  flex-shrink: 0;
+  width: var(--image-size, 96px);
+  height: var(--image-size, 96px);
+}
+
+.image {
+  object-fit: contain;
+}
+
+.placeholder {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--color-skeleton);
+  color: var(--color-text-muted);
+  font-size: calc(var(--image-size, 96px) / 3);
+  font-weight: 700;
+}
