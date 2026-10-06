@@ -33,16 +33,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.tech.challenge.application.pokemon.port.out.PokemonCatalogPort;
 import com.tech.challenge.domain.pokemon.model.PokemonSummary;
 
-/**
- * Sync through the real chain (security, validation, service, JPA, Flyway on H2 in memory) with the PokéAPI
- * mocked. The database lives as long as the JVM, so each test uses its own Pokémon.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class LocalPokemonSyncIntegrationTest {
 
-    /** The owner of the synced copies (D-31); far above the ids the auth tests generate. */
     private static final long USER_ID = 1001L;
 
     private final MockMvc mockMvc;
@@ -88,7 +83,6 @@ class LocalPokemonSyncIntegrationTest {
         // given
         final var mew = new PokemonSummary(151, "mew", "https://img/151.png", "New Species Pokémon",
                 new BigDecimal("4.0"), List.of("synchronize"));
-        // Both requests leave the PokéAPI step together, so neither can see the other's row before inserting.
         final var bothFetched = new CyclicBarrier(2);
         when(pokemonCatalogPort.findSummary("mew")).thenAnswer(invocation -> {
             bothFetched.await(5, TimeUnit.SECONDS);

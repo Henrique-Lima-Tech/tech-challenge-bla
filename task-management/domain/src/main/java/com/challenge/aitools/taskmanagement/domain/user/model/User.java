@@ -4,10 +4,6 @@ import java.util.Locale;
 
 import com.challenge.aitools.taskmanagement.domain.user.exception.InvalidUserException;
 
-/**
- * A registered user. {@code id} is {@code null} until the user is saved, and {@code email} is always
- * stored normalised, so comparing two emails is comparing two normalised values.
- */
 public record User(Long id, String name, String email, String passwordHash) {
 
     public static final int NAME_MAX_LENGTH = 100;
@@ -36,10 +32,6 @@ public record User(Long id, String name, String email, String passwordHash) {
         }
     }
 
-    /**
-     * Emails are compared case-insensitively and without surrounding whitespace. Null passes through so a
-     * lookup with a missing email simply finds nothing.
-     */
     public static String normalizeEmail(final String email) {
         return email == null ? null : email.trim().toLowerCase(Locale.ROOT);
     }

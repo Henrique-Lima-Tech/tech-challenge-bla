@@ -32,9 +32,6 @@ import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Local copies of Pokémon (D-09), authenticated (D-11). Each user works on their own copies only (D-31).
- */
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/local/pokemon")
@@ -48,7 +45,6 @@ public class LocalPokemonController {
     private final DeleteLocalPokemonUseCase deleteLocalPokemonUseCase;
     private final LocalPokemonMapper localPokemonMapper;
 
-    /** The JWT subject is the user id ({@code JwtTokenAdapter}). */
     private static long userId(final Jwt jwt) {
         return Long.parseLong(jwt.getSubject());
     }

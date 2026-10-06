@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TaskRepositoryAdapter implements TaskRepository {
 
-    /** The contract's only ordering: due date first, then the id as a tie-breaker. */
     private static final Sort SORT = Sort.by(Sort.Order.asc("dueDate"), Sort.Order.asc("id"));
 
     private final TaskJpaRepository taskJpaRepository;

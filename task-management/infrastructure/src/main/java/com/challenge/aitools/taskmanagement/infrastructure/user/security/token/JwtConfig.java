@@ -16,14 +16,9 @@ import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
-/**
- * The HS256 key shared by token issuing ({@link JwtTokenIssuer}) and token validation (the resource
- * server). The secret comes from {@code security.jwt.secret}, which has no default.
- */
 @Configuration
 public class JwtConfig {
 
-    /** RFC 7518 section 3.2: an HS256 key must have at least 256 bits. */
     private static final int MIN_SECRET_BYTES = 32;
 
     private final SecretKey secretKey;

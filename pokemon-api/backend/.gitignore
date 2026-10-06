@@ -33,5 +33,5 @@ build/
 .vscode/
 .idea/
 
-### H2 database files (D-12) ###
+### H2 database files ###
 data/

@@ -11,9 +11,6 @@ import com.tech.challenge.application.user.port.out.UserRepositoryPort;
 import com.tech.challenge.application.user.service.LoginService;
 import com.tech.challenge.application.user.service.RegisterUserService;
 
-/**
- * Registers the framework-free user services as Spring beans.
- */
 @Configuration
 public class UserUseCaseConfig {
 

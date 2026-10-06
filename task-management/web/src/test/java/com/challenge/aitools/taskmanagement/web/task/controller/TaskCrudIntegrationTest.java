@@ -20,10 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * The whole task CRUD through the real chain, plus the two answers that must never leak ownership: a task
- * of another user, and a request without a token.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 class TaskCrudIntegrationTest {

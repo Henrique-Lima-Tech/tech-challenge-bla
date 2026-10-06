@@ -187,7 +187,7 @@ describe('mock: local CRUD (US04)', () => {
   })
 })
 
-describe('mock: local Pokémon per user (D-31)', () => {
+describe('mock: local Pokémon per user', () => {
   const loginAsMisty = async () => {
     await authApi.register({ name: 'Misty', email: 'misty@pokedex.dev', password: 'water123' })
     tokenStorage.set('mock-token-misty@pokedex.dev')

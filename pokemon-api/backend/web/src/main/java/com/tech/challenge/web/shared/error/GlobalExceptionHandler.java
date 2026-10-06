@@ -29,15 +29,10 @@ import com.tech.challenge.domain.user.exception.InvalidCredentialsException;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Every error as a {@link ProblemDetail} (D-17). Details are fixed English messages: no stack trace and
- * no upstream body ever reaches the client.
- */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    /** Spring Framework 7 leaves {@code type} null; the contract shows it explicitly. */
     private static final URI BLANK_TYPE = URI.create("about:blank");
 
     record FieldError(String field, String message) {
@@ -105,11 +100,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, problem, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    /**
-     * A constraint on a parameter makes Spring validate every parameter of the method, the {@code @Valid} body
-     * included: its errors arrive here as {@link ParameterErrors} instead of as a
-     * {@code MethodArgumentNotValidException}, and only they know the field path inside the body.
-     */
     @Override
     protected ResponseEntity<Object> handleHandlerMethodValidationException(final HandlerMethodValidationException e,
             final HttpHeaders headers, final HttpStatusCode status, final WebRequest request) {
@@ -131,11 +121,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(error -> new FieldError(result.getMethodParameter().getParameterName(), error.getDefaultMessage()));
     }
 
-    /**
-     * Spring's default detail echoes the rejected value; the contract wants a fixed detail and {@code errors[]}.
-     * The message assumes an integer parameter: today only {@code page}, {@code size} and the local Pokémon
-     * path {@code id} can mismatch.
-     */
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException e, final HttpHeaders headers,
             final HttpStatusCode status, final WebRequest request) {

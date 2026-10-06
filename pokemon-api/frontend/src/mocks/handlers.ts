@@ -46,9 +46,6 @@ function zodErrors(error: z.ZodError): FieldError[] {
   }))
 }
 
-/**
- * Mock tokens are `mock-token-<email>`, not JWTs.
- */
 function userFromRequest(request: Request): MockUser | undefined {
   const token = request.headers.get('Authorization')?.replace('Bearer ', '')
   const email = token?.startsWith('mock-token-') ? token.slice('mock-token-'.length) : null
@@ -90,9 +87,6 @@ async function readJson(request: Request): Promise<unknown> {
   }
 }
 
-/**
- * Another user's Pokémon answers 404, like a missing one (D-31).
- */
 function findLocal(idParam: string, user: MockUser): MockLocalPokemon | Response {
   const id = Number(idParam)
   if (!Number.isInteger(id) || id <= 0) return problem(400, VALIDATION_FAILED)
@@ -107,10 +101,6 @@ const createSchema = z.object({
   internalTags: localPokemonUpdateSchema.shape.internalTags.optional(),
 })
 
-/**
- * Stand-in for the back end in the tests and in `npm run dev` with `VITE_USE_MOCKS=true`, following
- * docs/api-contract.md.
- */
 export const handlers = [
   http.get(api('/pokemon'), async ({ request }) => {
     await delay()

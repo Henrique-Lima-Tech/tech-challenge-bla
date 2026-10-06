@@ -7,10 +7,6 @@ import org.springframework.web.client.RestClient;
 
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * PokéAPI {@link RestClient} (D-16). Timeouts come from {@code spring.http.clients.*}, applied by Spring Boot
- * to the auto-configured {@link RestClient.Builder}.
- */
 @Slf4j
 @Configuration
 public class PokeApiConfig {

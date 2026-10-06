@@ -26,6 +26,5 @@ public record RegisterRequest(
 
     public static final int PASSWORD_MIN_LENGTH = 8;
 
-    /** BCrypt only considers the first 72 bytes of a password. */
     public static final int PASSWORD_MAX_BYTES = 72;
 }

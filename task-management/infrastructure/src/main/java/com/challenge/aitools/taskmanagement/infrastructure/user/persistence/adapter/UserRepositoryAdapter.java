@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserRepositoryAdapter implements UserRepository {
 
-    /** Name given in {@code V1__create_users_table.sql}. */
     private static final String EMAIL_CONSTRAINT = "uk_users_email";
 
     private final UserJpaRepository userJpaRepository;
@@ -47,7 +46,6 @@ public class UserRepositoryAdapter implements UserRepository {
             if (!isEmailConstraint(e)) {
                 throw e;
             }
-            // The cause is left out on purpose: the database message carries the duplicated email.
             log.warn("Saving user failed: email already registered");
             throw new EmailAlreadyRegisteredException();
         }

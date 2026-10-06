@@ -47,7 +47,6 @@ class AuthControllerTest {
 
     private static final JsonMapper JSON = JsonMapper.builder().build();
     private static final String PASSWORD = "pikachu123";
-    /** 255 characters, otherwise a well-formed address. */
     private static final String EMAIL_255 = "a@" + ("b".repeat(60) + ".").repeat(4) + "c".repeat(9);
 
     private final MockMvc mockMvc;

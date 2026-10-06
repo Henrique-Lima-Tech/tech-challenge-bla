@@ -13,13 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 
-/**
- * Every field a {@code PUT} replaces (D-25). The identifiers are declared only to be rejected: D-27 wants a 400
- * when they are sent, not a silent "ignored".
- *
- * @param id must not be sent
- * @param pokeApiId must not be sent
- */
 public record UpdateLocalPokemonRequest(
         @Null(message = "must not be sent") Long id,
         @Null(message = "must not be sent") Integer pokeApiId,
@@ -42,7 +35,6 @@ public record UpdateLocalPokemonRequest(
         @UniqueIgnoringCase(message = "must not contain duplicates")
         List<@NotBlank(message = "must not be blank") @Size(max = 30, message = "size must be at most 30") String> internalTags) {
 
-    /** Runs before Bean Validation. */
     public UpdateLocalPokemonRequest {
         name = trim(name);
         spriteUrl = trim(spriteUrl);

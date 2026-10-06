@@ -18,10 +18,6 @@ type ControlProps = {
   'aria-describedby'?: string
 }
 
-/**
- * Label, hint, counter and error around one input, linked with `aria-describedby` and
- * `aria-invalid` so screen readers announce them with the input.
- */
 function FieldShell({
   id: givenId,
   label,

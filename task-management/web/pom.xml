@@ -57,7 +57,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<!-- ./vault and ./data are relative to the process: run from the project root, not from web/ -->
 					<workingDirectory>${maven.multiModuleProjectDirectory}</workingDirectory>
 				</configuration>
 			</plugin>

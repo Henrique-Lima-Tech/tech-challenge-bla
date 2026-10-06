@@ -1,7 +1,7 @@
 # Validation report — Phase 3
 
 Date: 2026-10-05. Everything below was run; nothing is claimed from reading the code alone.
-The raw request/response session is in `docs/curl-session.txt`.
+The application was exercised with a 39-call `curl` session against the running jar.
 
 ## 1. Build
 
@@ -69,24 +69,24 @@ another project), with `JWT_SECRET` from the environment, against H2 in file mod
 
 | Edge case | Observed | Covered by |
 |---|---|---|
-| Another user's task | `404` `Task not found` for GET, PUT, DELETE | curl 29–31, `TaskControllerTest`, `TaskCrudIntegrationTest` |
-| Non-numeric id | `400` `Validation failed`, `errors[0] = {id, must be an integer}` | curl 20, `TaskControllerTest` |
-| Id lower than 1 | `400`, `errors[0] = {id, must be at least 1}` (0 and -1) | curl 21, `TaskControllerTest` |
-| Malformed JSON | `400` `Malformed request body` | curl 17, both controller tests |
-| Empty body | `400` `Malformed request body` | curl 18, both controller tests |
-| Unknown status in the body | `400`, `{status, must be one of TODO, IN_PROGRESS, DONE}` | curl 14, `TaskControllerTest` |
-| Unknown status in the query | same answer | curl 25, `TaskControllerTest` |
-| `id`/`ownerId`/`createdAt`/`updatedAt` in the body | `400`, `{<field>, must not be sent}` | curl 15–16, 8 parameterized cases |
-| Page past the end | `200`, `content: []`, `totalElements: 6`, `totalPages: 1` | curl 27, adapter and controller tests |
-| Already registered email | `409` `Email already registered`, also for `CURL-USER@Example.com` | curl 4, `AuthControllerTest`, `AuthFlowIntegrationTest` |
-| Login failure | always `401` `Invalid email or password`, for a wrong password, an unknown email and a malformed email alike | curl 5–6, `AuthControllerTest` |
-| Missing token | `401` `Authentication required` + `WWW-Authenticate: Bearer` | curl 33, `TaskControllerTest` |
-| Invalid token | same `401` | curl 34, `TaskControllerTest` |
-| Expired token | same `401` | curl 35, `AuthFlowIntegrationTest` |
-| `size` above 100 | `400`, `{size, must be at most 100}`; not clamped | curl 22, `TaskControllerTest` |
-| Negative page | `400`, `{page, must be at least 0}` | curl 23, `TaskControllerTest` |
-| Due date in the past on creation | `400`, `{dueDate, must not be in the past}` | curl 13, service and controller tests |
-| Password under 8 characters | `400`, `{password, must be at least 8 characters}` | curl 7, `AuthControllerTest` |
+| Another user's task | `404` `Task not found` for GET, PUT, DELETE | curl, `TaskControllerTest`, `TaskCrudIntegrationTest` |
+| Non-numeric id | `400` `Validation failed`, `errors[0] = {id, must be an integer}` | curl, `TaskControllerTest` |
+| Id lower than 1 | `400`, `errors[0] = {id, must be at least 1}` (0 and -1) | curl, `TaskControllerTest` |
+| Malformed JSON | `400` `Malformed request body` | curl, both controller tests |
+| Empty body | `400` `Malformed request body` | curl, both controller tests |
+| Unknown status in the body | `400`, `{status, must be one of TODO, IN_PROGRESS, DONE}` | curl, `TaskControllerTest` |
+| Unknown status in the query | same answer | curl, `TaskControllerTest` |
+| `id`/`ownerId`/`createdAt`/`updatedAt` in the body | `400`, `{<field>, must not be sent}` | curl, 8 parameterized cases |
+| Page past the end | `200`, `content: []`, `totalElements: 6`, `totalPages: 1` | curl, adapter and controller tests |
+| Already registered email | `409` `Email already registered`, also for `CURL-USER@Example.com` | curl, `AuthControllerTest`, `AuthFlowIntegrationTest` |
+| Login failure | always `401` `Invalid email or password`, for a wrong password, an unknown email and a malformed email alike | curl, `AuthControllerTest` |
+| Missing token | `401` `Authentication required` + `WWW-Authenticate: Bearer` | curl, `TaskControllerTest` |
+| Invalid token | same `401` | curl, `TaskControllerTest` |
+| Expired token | same `401` | curl, `AuthFlowIntegrationTest` |
+| `size` above 100 | `400`, `{size, must be at most 100}`; not clamped | curl, `TaskControllerTest` |
+| Negative page | `400`, `{page, must be at least 0}` | curl, `TaskControllerTest` |
+| Due date in the past on creation | `400`, `{dueDate, must not be in the past}` | curl, service and controller tests |
+| Password under 8 characters | `400`, `{password, must be at least 8 characters}` | curl, `AuthControllerTest` |
 | Password over 72 UTF-8 bytes | `400`, `{password, must be at most 72 bytes}`; 40 `é` is 40 characters but 80 bytes | `AuthControllerTest`, `MaxUtf8BytesValidatorTest` |
 
 ## 4. Code review against the requirements
@@ -104,7 +104,7 @@ Checks run over the sources:
 | `final` everywhere | every local variable is `final var`, every `catch` is `catch (final ...)`, and every parameter of every method and constructor is `final` |
 | Constructor injection only | no `@Autowired` field; the Spring test classes inject through an `@Autowired` constructor into `final` fields |
 | No custom security filter | the OAuth2 resource server does the validation; `SecurityConfig` adds no filter |
-| No dependency beyond the approved list | the four module POMs hold exactly the dependencies of decision D-18 |
+| No dependency beyond the approved list | the four module POMs hold exactly the approved dependencies |
 
 The four places where mutable state remains, each with its reason:
 
@@ -153,8 +153,8 @@ Each of these is a deviation, not a silent decision:
   configurable per test, and neither is in scope.
 - **Port 8080.** The demonstration ran on 8081 because another process holds 8080 on this machine. The
   default port is unchanged.
-- **Anything behind a proxy, TLS, or a non-UTC server timezone.** "Today" is the UTC date by decision
-  D-03, which answer Q7 confirmed. On a machine at UTC-3 that means a due date of the local today is
+- **Anything behind a proxy, TLS, or a non-UTC server timezone.** "Today" is the UTC date by decision,
+  which answer Q7 confirmed. On a machine at UTC-3 that means a due date of the local today is
   rejected between 21:00 and midnight local time. This is the agreed behaviour, not a bug, and it is
   worth remembering when demonstrating late in the evening.
 

@@ -42,7 +42,6 @@ export function RegisterPage() {
       void navigate('/login', { state: { email } })
     } catch (error) {
       if (!isApiError(error)) return setFormError('Something went wrong. Please try again.')
-      // A used email comes as a 409 without field errors; it belongs under the email input.
       if (error.status === 409 && error.fieldErrors.length === 0) {
         return setError('email', { type: 'server', message: error.message }, { shouldFocus: true })
       }

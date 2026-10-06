@@ -30,17 +30,12 @@ import com.challenge.aitools.taskmanagement.domain.user.exception.InvalidUserExc
 import lombok.extern.slf4j.Slf4j;
 import tools.jackson.databind.exc.UnrecognizedPropertyException;
 
-/**
- * Every error leaves the API as a {@link ProblemDetail} (RFC 9457) with a fixed English detail: no stack
- * trace, no database message and no rejected value ever reaches the client.
- */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private static final String VALIDATION_FAILED = "Validation failed";
 
-    /** Spring Framework 7 leaves {@code type} null; the contract shows it explicitly. */
     private static final URI BLANK_TYPE = URI.create("about:blank");
 
     record FieldError(String field, String message) {
@@ -104,11 +99,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, validationProblem(errors), headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    /**
-     * A constraint on a method parameter makes Spring validate every parameter of the handler, the
-     * {@code @Valid} body included: those errors arrive here as {@link ParameterErrors} instead of as a
-     * {@code MethodArgumentNotValidException}, and only they know the field path inside the body.
-     */
     @Override
     protected ResponseEntity<Object> handleHandlerMethodValidationException(final HandlerMethodValidationException e,
             final HttpHeaders headers, final HttpStatusCode status, final WebRequest request) {
@@ -127,11 +117,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(error -> new FieldError(result.getMethodParameter().getParameterName(), error.getDefaultMessage()));
     }
 
-    /**
-     * A read-only or unknown field names the field it rejects; anything else unreadable (malformed JSON,
-     * an empty body, a date that is not a date) gets one fixed detail, since echoing the parser message
-     * would echo the rejected value.
-     */
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(final HttpMessageNotReadableException e,
             final HttpHeaders headers, final HttpStatusCode status, final WebRequest request) {
@@ -144,11 +129,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(e, problem, headers, HttpStatus.BAD_REQUEST, request);
     }
 
-    /**
-     * Spring's default detail echoes the rejected value; the contract wants a fixed detail and
-     * {@code errors[]}. Every parameter that can mismatch today is an integer: {@code page}, {@code size}
-     * and the path {@code id}.
-     */
     @Override
     protected ResponseEntity<Object> handleTypeMismatch(final TypeMismatchException e, final HttpHeaders headers,
             final HttpStatusCode status, final WebRequest request) {

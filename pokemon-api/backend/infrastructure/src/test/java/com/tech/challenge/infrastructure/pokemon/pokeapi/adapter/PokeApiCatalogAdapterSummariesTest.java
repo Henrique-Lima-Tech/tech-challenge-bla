@@ -42,7 +42,6 @@ class PokeApiCatalogAdapterSummariesTest {
     @TestConfiguration
     static class UnorderedServerConfig {
 
-        /** The items of a page are fetched in parallel, so their requests arrive in any order. */
         @Bean
         MockServerRestClientCustomizer mockServerRestClientCustomizer() {
             return new MockServerRestClientCustomizer(UnorderedRequestExpectationManager::new);

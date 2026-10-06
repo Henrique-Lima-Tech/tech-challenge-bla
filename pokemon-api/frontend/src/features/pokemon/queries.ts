@@ -4,7 +4,6 @@ import { pokemonApi } from './api'
 const pokemonKeys = {
   all: ['pokemon'] as const,
   list: (page: number, size: number) => [...pokemonKeys.all, 'list', { page, size }] as const,
-  // "Pikachu" and "pikachu" share one cache entry.
   details: (idOrName: string) => [...pokemonKeys.all, 'details', idOrName.toLowerCase()] as const,
 }
 

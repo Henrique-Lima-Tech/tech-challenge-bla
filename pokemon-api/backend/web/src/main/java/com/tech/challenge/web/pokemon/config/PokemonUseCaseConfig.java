@@ -20,9 +20,6 @@ import com.tech.challenge.application.pokemon.service.ListPokemonService;
 import com.tech.challenge.application.pokemon.service.SyncPokemonService;
 import com.tech.challenge.application.pokemon.service.UpdateLocalPokemonService;
 
-/**
- * Registers the framework-free Pokémon services as Spring beans.
- */
 @Configuration
 public class PokemonUseCaseConfig {
 

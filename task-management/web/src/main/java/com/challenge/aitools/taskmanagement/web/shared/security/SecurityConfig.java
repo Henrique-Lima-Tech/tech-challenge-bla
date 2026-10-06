@@ -14,11 +14,6 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.challenge.aitools.taskmanagement.infrastructure.user.security.token.JwtConfig;
 
-/**
- * The two authentication routes are public; every other route needs a valid JWT, validated by the
- * OAuth2 resource server. {@link JwtConfig} is imported so a test that imports this class also gets
- * the {@code JwtDecoder}.
- */
 @Configuration
 @Import(JwtConfig.class)
 public class SecurityConfig {
@@ -39,7 +34,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults())
-                        // GlobalExceptionHandler builds the 401 ProblemDetail, like every other error
                         .authenticationEntryPoint((request, response, e) ->
                                 handlerExceptionResolver.resolveException(request, response, null, e)))
                 .build();

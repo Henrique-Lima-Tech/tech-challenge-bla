@@ -72,7 +72,6 @@ class LocalPokemonControllerTest {
     @MockitoBean
     private SyncPokemonUseCase syncPokemonUseCase;
 
-    // Required by the controller constructor; unused by the sync tests.
     @MockitoBean
     private UpdateLocalPokemonUseCase updateLocalPokemonUseCase;
 

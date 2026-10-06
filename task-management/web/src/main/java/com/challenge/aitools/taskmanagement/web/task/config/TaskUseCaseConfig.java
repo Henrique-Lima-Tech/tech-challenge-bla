@@ -16,9 +16,6 @@ import com.challenge.aitools.taskmanagement.application.task.service.GetTaskServ
 import com.challenge.aitools.taskmanagement.application.task.service.ListTasksService;
 import com.challenge.aitools.taskmanagement.application.task.service.UpdateTaskService;
 
-/**
- * Registers the framework-free task services as Spring beans.
- */
 @Configuration
 public class TaskUseCaseConfig {
 

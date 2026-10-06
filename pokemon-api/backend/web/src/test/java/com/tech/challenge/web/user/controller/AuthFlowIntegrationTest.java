@@ -17,10 +17,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Register, login and a protected route through the real chain: BCrypt, Flyway on H2 in memory, token issuing
- * and the resource server. The database lives as long as the JVM, so each test uses its own emails.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -58,7 +54,6 @@ class AuthFlowIntegrationTest {
         final var token = JSON.readTree(login("ash@example.com", "pikachu123", 200)).get("accessToken").asString();
 
         // when & then
-        // Body validation runs only after security accepted the token: an empty JSON object ends in 400, not 401.
         mockMvc.perform(post("/api/v1/local/pokemon").header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                         .contentType(MediaType.APPLICATION_JSON).content("{}"))
                 .andExpect(status().isBadRequest());

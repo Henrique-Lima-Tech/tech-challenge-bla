@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserPersistenceAdapter implements UserRepositoryPort {
 
-    /** Name given in {@code V1__create_users_table.sql}. */
     private static final String EMAIL_CONSTRAINT = "uk_users_email";
 
     private final UserJpaRepository userJpaRepository;
@@ -48,7 +47,6 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
             if (!isEmailConstraint(e)) {
                 throw e;
             }
-            // The cause is left out on purpose: the database message contains the duplicated email.
             log.warn("Saving user failed: email already used");
             throw new EmailAlreadyUsedException();
         }

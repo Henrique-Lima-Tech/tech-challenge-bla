@@ -1,9 +1,8 @@
 import { act, screen } from '@testing-library/react'
 import { http, HttpResponse } from 'msw'
-import { afterEach, describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { server } from '../../../mocks/server'
 import { tokenStorage } from '../../../shared/api/tokenStorage'
-import { env } from '../../../shared/config/env'
 import { renderApp } from '../../../test/render'
 
 const LOGIN_URL = 'http://localhost:8080/api/v1/auth/login'
@@ -15,23 +14,6 @@ async function signIn(user: ReturnType<typeof renderApp>['user'], password = 'de
 }
 
 describe('LoginPage', () => {
-  const originalUseMocks = env.useMocks
-  afterEach(() => {
-    env.useMocks = originalUseMocks
-  })
-
-  it('shows the demo user of the mock only when the mock is on', async () => {
-    env.useMocks = false
-    const { unmount } = renderApp('/login')
-    expect(await screen.findByRole('heading', { name: 'Sign in' })).toBeInTheDocument()
-    expect(screen.queryByText(/Demo user/)).not.toBeInTheDocument()
-    unmount()
-
-    env.useMocks = true
-    renderApp('/login')
-    expect(await screen.findByText('demo@pokedex.dev / demo1234')).toBeInTheDocument()
-  })
-
   it('validates the fields on the client before calling the API', async () => {
     const { user } = renderApp('/login')
     await user.click(await screen.findByRole('button', { name: 'Sign in' }))

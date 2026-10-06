@@ -17,7 +17,6 @@ export function PokemonImage({
   lazy = false,
   className,
 }: Readonly<PokemonImageProps>) {
-  // Kept per src, so a new src gets a fresh try after a failed one.
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
 
   if (!src || failedSrc === src) {

@@ -5,7 +5,6 @@ export type AuthStatus = 'authenticated' | 'anonymous'
 
 export type AuthContextValue = {
   status: AuthStatus
-  /** null for a session saved before the login returned the name (D-32). */
   name: string | null
   login: (credentials: LoginRequest) => Promise<void>
   logout: () => void

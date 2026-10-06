@@ -5,9 +5,6 @@ import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-/**
- * @param pokemon PokéAPI id or name
- */
 public record SyncPokemonRequest(
         @NotBlank(message = "must not be blank")
         @Size(max = 50, message = "size must be at most 50") String pokemon,
@@ -17,7 +14,6 @@ public record SyncPokemonRequest(
         @UniqueIgnoringCase(message = "must not contain duplicates")
         List<@NotBlank(message = "must not be blank") @Size(max = 30, message = "size must be at most 30") String> internalTags) {
 
-    /** Runs before Bean Validation. */
     public SyncPokemonRequest {
         pokemon = trim(pokemon);
         localizedName = trim(localizedName);

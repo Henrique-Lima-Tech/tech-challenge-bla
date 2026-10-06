@@ -2,20 +2,15 @@ spring:
   application:
     name: challenge
   config:
-    # Simulated vault: each file in ./vault is a property (file name = key, content = value),
-    # like secrets mounted by Vault or Kubernetes. Relative to the working directory, like the H2 file.
     import: optional:configtree:./vault/
   datasource:
-    # H2 in file mode (D-12). Relative to the working directory; ignored by git.
     url: ${DB_URL:jdbc:h2:file:./data/challenge}
     username: ${DB_USERNAME:sa}
     password: ${DB_PASSWORD:}
   flyway:
-    # Schema migrations and seed data (D-14)
     locations: classpath:db/migration,classpath:db/seed
   jpa:
     hibernate:
-      # Flyway owns the schema; Hibernate only checks that the entities match it
       ddl-auto: validate
   http:
     clients:
@@ -28,24 +23,19 @@ spring:
 
 pokeapi:
   base-url: https://pokeapi.co/api/v2
-  # Global cap on concurrent PokéAPI calls (D-28)
   max-concurrent-calls: 10
 
 security:
   jwt:
-    # HS256 signing key, at least 32 bytes. Read from the simulated vault (file vault/JWT_SECRET);
-    # the JWT_SECRET environment variable overrides it.
     secret: ${JWT_SECRET}
     expiration: 1h
 
 logging:
   level:
     com.tech.challenge: INFO
-    # Hibernate logs constraint violations at WARN with the rejected values (a duplicated email, for example)
     org.hibernate.orm.jdbc.error: ERROR
 
 ---
-# Tests use H2 in memory (D-24)
 spring:
   config:
     activate:

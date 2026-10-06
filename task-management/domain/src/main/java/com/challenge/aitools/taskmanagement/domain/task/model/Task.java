@@ -6,20 +6,12 @@ import java.time.ZoneOffset;
 
 import com.challenge.aitools.taskmanagement.domain.task.exception.InvalidTaskException;
 
-/**
- * A task owned by one user. {@code id} is {@code null} until the task is saved.
- *
- * <p>The canonical constructor checks the shape of a task, not its freshness: a stored task may carry an
- * overdue {@code dueDate}. The rule that a due date may not be in the past belongs to the two operations
- * that take a due date from the outside, {@link #create} and {@link #replace}.
- */
 public record Task(Long id, String title, String description, TaskStatus status, LocalDate dueDate, Long ownerId,
         Instant createdAt, Instant updatedAt) {
 
     public static final int TITLE_MAX_LENGTH = 120;
     public static final int DESCRIPTION_MAX_LENGTH = 2000;
 
-    /** Due dates are compared against the UTC date of the given instant. */
     private static final ZoneOffset ZONE = ZoneOffset.UTC;
 
     public Task {

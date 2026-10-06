@@ -10,9 +10,5 @@ public interface UserRepository {
 
     Optional<User> findByEmail(String email);
 
-    /**
-     * @throws com.challenge.aitools.taskmanagement.domain.user.exception.EmailAlreadyRegisteredException
-     *         if another user already has the email
-     */
     User save(User user);
 }

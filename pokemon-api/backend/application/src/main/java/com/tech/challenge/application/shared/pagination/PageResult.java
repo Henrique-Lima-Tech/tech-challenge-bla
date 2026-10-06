@@ -2,9 +2,6 @@ package com.tech.challenge.application.shared.pagination;
 
 import java.util.List;
 
-/**
- * One page of results. {@code page} is 0-based.
- */
 public record PageResult<T>(List<T> content, int page, int size, long totalElements, int totalPages) {
 
     public PageResult {

@@ -44,15 +44,3 @@
   color: var(--color-text-muted);
   text-align: center;
 }
-
-.demo {
-  padding: var(--space-3);
-  border-radius: var(--radius-sm);
-  background: var(--color-bg);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-}
-
-.demo code {
-  color: var(--color-text);
-}

@@ -10,7 +10,6 @@ public record LoginRequest(
         @Size(max = 254, message = "size must be at most 254") String email,
         @NotBlank(message = "must not be blank") String password) {
 
-    /** Runs before Bean Validation. The password is never trimmed. */
     public LoginRequest {
         email = email == null ? null : email.trim();
     }

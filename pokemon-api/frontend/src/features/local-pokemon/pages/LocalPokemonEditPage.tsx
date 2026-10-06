@@ -41,16 +41,11 @@ function FormSkeleton() {
   )
 }
 
-/**
- * Loads a local copy by its local id and hands it to `LocalPokemonForm`. An invalid id or a 404
- * shows the not-found page.
- */
 export function LocalPokemonEditPage() {
   const { id: idParam } = useParams()
   const id = Number(idParam)
   const isValidId = Number.isInteger(id) && id > 0
   const navigate = useNavigate()
-  // An invalid id never reaches the back end.
   const query = useLocalPokemon(id, isValidId)
   const update = useUpdateLocalPokemon(id)
   const pokemon = query.data
@@ -62,7 +57,6 @@ export function LocalPokemonEditPage() {
   }
 
   async function save(input: LocalPokemonUpdate) {
-    // A failed update throws, and LocalPokemonForm shows its errors.
     await update.mutateAsync(input)
     notify.success('Changes saved')
     void navigate('/my-pokemon')

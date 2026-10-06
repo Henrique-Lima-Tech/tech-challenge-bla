@@ -26,10 +26,6 @@ import com.tech.challenge.infrastructure.pokemon.pokeapi.config.PokeApiConfig;
 import com.tech.challenge.infrastructure.pokemon.pokeapi.mapper.PokeApiDetailsMapperImpl;
 import com.tech.challenge.infrastructure.shared.cache.CacheConfig;
 
-/**
- * Every expectation is registered once: a second request for the same resource fails the test with
- * "No further requests expected", so a passing test proves the repeated call was served from the cache.
- */
 @RestClientTest(properties = { "pokeapi.base-url=https://pokeapi.co/api/v2", "pokeapi.max-concurrent-calls=10",
         "spring.cache.type=caffeine" })
 @ImportAutoConfiguration(CacheAutoConfiguration.class)
@@ -42,7 +38,6 @@ class PokeApiClientCacheTest {
     @TestConfiguration
     static class UnorderedServerConfig {
 
-        /** The items of a page are fetched in parallel, so their requests arrive in any order. */
         @Bean
         MockServerRestClientCustomizer mockServerRestClientCustomizer() {
             return new MockServerRestClientCustomizer(UnorderedRequestExpectationManager::new);

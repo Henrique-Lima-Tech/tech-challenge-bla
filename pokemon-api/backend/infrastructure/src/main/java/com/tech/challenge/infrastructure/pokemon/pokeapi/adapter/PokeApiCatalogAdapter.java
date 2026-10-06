@@ -29,7 +29,6 @@ public class PokeApiCatalogAdapter implements PokemonCatalogPort {
 
     private final PokeApiClient pokeApiClient;
     private final PokeApiDetailsMapper pokeApiDetailsMapper;
-    /** D-28: shared by every request, so the PokéAPI never sees more than this many calls from us at once. */
     private final Semaphore pokeApiPermits;
 
     public PokeApiCatalogAdapter(final PokeApiClient pokeApiClient, final PokeApiDetailsMapper pokeApiDetailsMapper,
@@ -94,10 +93,6 @@ public class PokeApiCatalogAdapter implements PokemonCatalogPort {
         }
     }
 
-    /**
-     * D-19: one virtual thread per item; the result keeps the order of the PokéAPI list. The first failure
-     * interrupts the other items, so a failing page does not hold D-28 permits until every item times out.
-     */
     private List<PokemonSummary> fetchInParallel(final List<PokeApiNamedResource> results) {
         try (final var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             final var futures = results.stream()
@@ -125,7 +120,6 @@ public class PokeApiCatalogAdapter implements PokemonCatalogPort {
         return pokeApiDetailsMapper.toSummary(pokemon, species);
     }
 
-    /** Holds a permit for one call only, never across two, so concurrent pages cannot deadlock each other. */
     private <T> T limited(final Supplier<T> call) {
         try {
             pokeApiPermits.acquire();

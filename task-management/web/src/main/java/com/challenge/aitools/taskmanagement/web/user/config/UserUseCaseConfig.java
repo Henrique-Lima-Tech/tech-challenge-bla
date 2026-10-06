@@ -11,9 +11,6 @@ import com.challenge.aitools.taskmanagement.application.user.port.out.UserReposi
 import com.challenge.aitools.taskmanagement.application.user.service.LoginService;
 import com.challenge.aitools.taskmanagement.application.user.service.RegisterUserService;
 
-/**
- * Registers the framework-free user services as Spring beans.
- */
 @Configuration
 public class UserUseCaseConfig {
 

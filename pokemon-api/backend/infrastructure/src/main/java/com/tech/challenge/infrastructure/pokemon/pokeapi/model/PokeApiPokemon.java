@@ -5,9 +5,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- * {@code GET /pokemon/{id or name}}: only the fields listed in {@code docs/challenge/pokeapi.md}.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record PokeApiPokemon(
         int id,

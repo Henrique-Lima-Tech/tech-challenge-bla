@@ -16,10 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Registration, login and a protected route through the real chain: BCrypt, Flyway on H2 in memory, token
- * issuing and the resource server. The database lives as long as the JVM, so each test uses its own email.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 class AuthFlowIntegrationTest {

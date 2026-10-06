@@ -20,7 +20,6 @@ public interface PokeApiDetailsMapper {
 
     String DESCRIPTION_LANGUAGE = "en";
     String CATEGORY_LANGUAGE = "en";
-    /** D-29: the pattern {@code sprites.front_default} uses for a species' default form. */
     String SPRITE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/%s.png";
     Pattern SPECIES_ID = Pattern.compile(".*/(\\d+)/?");
 
@@ -56,10 +55,6 @@ public interface PokeApiDetailsMapper {
         return matcher.matches() ? SPRITE_URL.formatted(matcher.group(1)) : null;
     }
 
-    /**
-     * First English flavor text, cleaned of the game-file characters: a soft hyphen before a line break
-     * joins the split word, and every run of whitespace (line breaks, form feeds) becomes one space.
-     */
     @Named("description")
     default String toDescription(final PokeApiSpecies species) {
         if (species.flavorTextEntries() == null) {
@@ -76,7 +71,6 @@ public interface PokeApiDetailsMapper {
         return slot.ability().name();
     }
 
-    /** First English genus, for example "Seed Pokémon". */
     @Named("category")
     default String toCategory(final PokeApiSpecies species) {
         if (species.genera() == null) {
@@ -89,7 +83,6 @@ public interface PokeApiDetailsMapper {
                 .orElse(null);
     }
 
-    /** The PokéAPI weight is in hectograms. */
     @Named("weightKg")
     default BigDecimal toWeightKg(final int hectograms) {
         return BigDecimal.valueOf(hectograms, 1);

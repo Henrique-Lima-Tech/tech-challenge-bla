@@ -16,10 +16,6 @@ import com.tech.challenge.infrastructure.pokemon.pokeapi.model.PokeApiSpecies;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * HTTP calls to the PokéAPI. Failures surface as Spring's {@code RestClientException}. Successful responses and
- * 404s are cached (D-15); failures are not.
- */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -32,7 +28,6 @@ public class PokeApiClient {
 
     private final RestClient pokeApiRestClient;
 
-    /** @return empty when the PokéAPI answers 404 */
     @Cacheable(POKEMON_CACHE)
     public Optional<PokeApiPokemon> findPokemon(final String idOrName) {
         log.debug("Fetching Pokemon '{}' from PokeAPI", idOrName);
@@ -47,14 +42,12 @@ public class PokeApiClient {
         }
     }
 
-    /** @param url {@code species.url} from a Pokémon response */
     @Cacheable(SPECIES_CACHE)
     public PokeApiSpecies getSpecies(final String url) {
         log.debug("Fetching species from PokeAPI: {}", url);
         return pokeApiRestClient.get().uri(URI.create(url)).retrieve().body(PokeApiSpecies.class);
     }
 
-    /** @param url {@code evolution_chain.url} from a species response */
     @Cacheable(EVOLUTION_CHAIN_CACHE)
     public PokeApiEvolutionChain getEvolutionChain(final String url) {
         log.debug("Fetching evolution chain from PokeAPI: {}", url);
@@ -70,7 +63,6 @@ public class PokeApiClient {
                 .body(PokeApiPokemonList.class);
     }
 
-    /** @param url {@code results[].url} from a list response */
     @Cacheable(POKEMON_CACHE)
     public PokeApiPokemon getPokemon(final String url) {
         log.debug("Fetching Pokemon from PokeAPI: {}", url);
