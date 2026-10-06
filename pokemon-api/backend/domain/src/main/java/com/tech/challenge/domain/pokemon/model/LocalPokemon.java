@@ -8,11 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-/**
- * A Pokémon replicated into the local database (REQ-US03): the PokéAPI data plus the proprietary fields
- * {@code localizedName}, {@code region} and {@code internalTags}. {@code id} is {@code null} until it is saved.
- * Limits from D-27.
- */
 public record LocalPokemon(
         Long id,
         int pokeApiId,
@@ -60,7 +55,6 @@ public record LocalPokemon(
         }
     }
 
-    /** {@code List.copyOf} would throw a {@code NullPointerException} on a null element: check them first. */
     private static List<String> copyOfTexts(final List<String> values, final int maxLength, final String field) {
         if (values == null) {
             return List.of();

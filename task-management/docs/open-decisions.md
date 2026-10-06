@@ -1,6 +1,6 @@
 # Open Decisions 1 — questions raised by the Phase 1 plan
 
-Source: `docs/plan.md`, section "4. Open questions".
+The questions the AI raised while planning, with the developer's answers. Four of them differ from the AI's proposal.
 
 1. **Register response.** `POST /api/v1/auth/register`: which status code and which body — 201 with
    `{id, name, email}`, 200 with the same body, or 201 empty? Any `Location` header, given that no

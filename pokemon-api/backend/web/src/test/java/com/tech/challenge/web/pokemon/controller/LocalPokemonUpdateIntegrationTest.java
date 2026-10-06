@@ -36,17 +36,11 @@ import com.tech.challenge.domain.pokemon.model.PokemonSummary;
 
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Update through the real chain (security, validation, service, JPA, Flyway on H2 in memory). The record is
- * created with the US03 sync and the PokéAPI is mocked. The database lives as long as the JVM, so each test
- * uses its own Pokémon.
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class LocalPokemonUpdateIntegrationTest {
 
-    /** The owner of the synced copies (D-31); far above the ids the auth tests generate. */
     private static final long USER_ID = 1002L;
 
     private static final JsonMapper JSON = JsonMapper.builder().build();

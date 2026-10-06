@@ -28,10 +28,6 @@ const FIELDS = [
   'internalTags',
 ] as const
 
-/**
- * Every input is text: lists are joined with commas and a missing optional value becomes an
- * empty string. `localPokemonFormSchema` turns the inputs back into a `LocalPokemonUpdate`.
- */
 function toFormValues(pokemon: LocalPokemon): LocalPokemonFormValues {
   return {
     name: pokemon.name,
@@ -50,10 +46,6 @@ type LocalPokemonFormProps = {
   onSubmit: (input: LocalPokemonUpdate) => Promise<void>
 }
 
-/**
- * Edits every field of a local copy except its identifiers. The page loads the Pokémon and
- * handles the 404; this form validates, submits and shows the back end's field errors.
- */
 export function LocalPokemonForm({ pokemon, onSubmit }: Readonly<LocalPokemonFormProps>) {
   const {
     register,
@@ -67,7 +59,6 @@ export function LocalPokemonForm({ pokemon, onSubmit }: Readonly<LocalPokemonFor
     defaultValues: toFormValues(pokemon),
   })
 
-  // The counters and the tags preview use the same normalization as the submitted value.
   const abilityCount = parseList(useWatch({ control, name: 'abilities' })).length
   const previewTags = parseList(useWatch({ control, name: 'internalTags' }))
 
@@ -80,7 +71,6 @@ export function LocalPokemonForm({ pokemon, onSubmit }: Readonly<LocalPokemonFor
         return
       }
       const unmatched = applyFieldErrors(error.fieldErrors, FIELDS, setError)
-      // No field errors, or one with no matching input: the message still needs to show.
       if (error.fieldErrors.length === 0 || unmatched.length > 0) notify.error(error.message)
     }
   })

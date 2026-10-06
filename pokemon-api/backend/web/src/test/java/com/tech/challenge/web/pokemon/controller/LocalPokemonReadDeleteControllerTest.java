@@ -65,7 +65,6 @@ class LocalPokemonReadDeleteControllerTest {
     @MockitoBean
     private DeleteLocalPokemonUseCase deleteLocalPokemonUseCase;
 
-    // Required by the controller constructor; unused by the read and delete tests.
     @MockitoBean
     private SyncPokemonUseCase syncPokemonUseCase;
 

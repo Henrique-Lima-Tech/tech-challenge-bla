@@ -8,9 +8,6 @@ function normalizeList(items: string[]): string[] {
   return [...new Set(cleaned)]
 }
 
-/**
- * Splits comma-separated text into trimmed, lowercase items, without blanks or repeats.
- */
 export function parseList(text: string): string[] {
   return normalizeList(text.split(','))
 }
@@ -25,9 +22,6 @@ function hasAtMostOneDecimal(value: number): boolean {
 
 const maxLength = (max: number) => `Use at most ${max} characters.`
 
-/**
- * The PUT rules of the contract (D-27), so most 400s are caught before the request.
- */
 export const localPokemonUpdateSchema = z.object({
   name: z.string().trim().min(1, 'Enter the name.').max(50, maxLength(50)),
   spriteUrl: z
@@ -68,9 +62,6 @@ export const localPokemonUpdateSchema = z.object({
 const emptyToNull = (text: string) => (text.trim() === '' ? null : text.trim())
 const fields = localPokemonUpdateSchema.shape
 
-/**
- * Reads the form's text inputs: blank optional fields become null, lists are comma-separated.
- */
 export const localPokemonFormSchema = z.object({
   name: z.string().pipe(fields.name),
   spriteUrl: z.string().transform(emptyToNull).pipe(fields.spriteUrl),

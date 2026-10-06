@@ -9,10 +9,6 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-/**
- * Limits the UTF-8 size of a text. BCrypt refuses to hash more than 72 bytes, which {@code @Size} (characters)
- * cannot express.
- */
 @Documented
 @Constraint(validatedBy = MaxUtf8BytesValidator.class)
 @Target(ElementType.FIELD)

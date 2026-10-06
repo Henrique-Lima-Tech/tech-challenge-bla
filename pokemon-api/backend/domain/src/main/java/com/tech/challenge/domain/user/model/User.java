@@ -1,8 +1,5 @@
 package com.tech.challenge.domain.user.model;
 
-/**
- * A registered user (REQ-API02). {@code id} is {@code null} until the user is saved.
- */
 public record User(Long id, String name, String email, String passwordHash) {
 
     public User {

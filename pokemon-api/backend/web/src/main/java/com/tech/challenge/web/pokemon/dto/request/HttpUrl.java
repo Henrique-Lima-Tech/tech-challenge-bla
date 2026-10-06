@@ -9,10 +9,6 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-/**
- * An absolute {@code http} or {@code https} URL with a host (D-27, {@code spriteUrl}). Hibernate Validator's
- * {@code @URL} can pin only one protocol at a time.
- */
 @Documented
 @Constraint(validatedBy = HttpUrlValidator.class)
 @Target(ElementType.FIELD)

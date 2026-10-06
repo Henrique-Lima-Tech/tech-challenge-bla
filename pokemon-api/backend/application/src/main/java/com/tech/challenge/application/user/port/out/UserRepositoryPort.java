@@ -10,8 +10,5 @@ public interface UserRepositoryPort {
 
     Optional<User> findByEmail(String email);
 
-    /**
-     * @throws com.tech.challenge.domain.user.exception.EmailAlreadyUsedException if another user already has the email
-     */
     User save(User user);
 }

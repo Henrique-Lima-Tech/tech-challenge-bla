@@ -17,7 +17,6 @@ public interface LocalPokemonMapper {
 
     SyncPokemonCommand toCommand(long userId, SyncPokemonRequest request);
 
-    /** The id comes from the path; the request carries one only to be rejected (D-25, D-27). */
     @Mapping(target = "id", source = "pokemonId")
     UpdateLocalPokemonCommand toCommand(long userId, long pokemonId, UpdateLocalPokemonRequest request);
 

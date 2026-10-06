@@ -43,10 +43,6 @@ type ErrorStateProps = {
   headingLevel?: 1 | 2
 }
 
-/**
- * Error block with a retry. Status 0 and 5xx mean the back end, or the PokéAPI behind it, could
- * not answer, so the title says so.
- */
 export function ErrorState({ error, onRetry, headingLevel }: Readonly<ErrorStateProps>) {
   const offline = isApiError(error) && (error.status === 0 || error.status >= 500)
   const title = offline ? 'Could not connect to the server' : 'Could not load'

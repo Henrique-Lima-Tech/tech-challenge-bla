@@ -124,7 +124,6 @@ class SecurityConfigTest {
         final var valid = token(Instant.now(), Duration.ofHours(1));
 
         // when & then
-        // No controller for /api/v1/local/** is loaded in this slice: getting past security ends in 404.
         mockMvc.perform(get("/api/v1/local/pokemon").header(HttpHeaders.AUTHORIZATION, "Bearer " + valid))
                 .andExpect(status().isNotFound());
     }

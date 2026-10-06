@@ -9,9 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-/**
- * A full replacement: every editable field is sent, and the ones left out are replaced by their absence.
- */
 public record UpdateTaskRequest(
 
         @NotBlank(message = "must not be blank")

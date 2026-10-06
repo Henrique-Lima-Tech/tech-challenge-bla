@@ -3,9 +3,6 @@ import { cx } from '../../../shared/cx'
 import type { PokemonStat } from '../types'
 import styles from './StatList.module.css'
 
-/**
- * Labels for the PokéAPI stat names. An unknown name is shown as it comes.
- */
 const STAT_LABELS: Record<string, string> = {
   hp: 'HP',
   attack: 'Attack',
@@ -15,9 +12,6 @@ const STAT_LABELS: Record<string, string> = {
   speed: 'Speed',
 }
 
-/**
- * The highest base stat in the games: the bars are proportional to it.
- */
 const MAX_BASE_STAT = 255
 
 function statLevel(value: number) {

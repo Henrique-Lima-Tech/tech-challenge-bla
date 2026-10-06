@@ -19,9 +19,6 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Public Pokémon catalog, read from the PokéAPI (D-09).
- */
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/pokemon")

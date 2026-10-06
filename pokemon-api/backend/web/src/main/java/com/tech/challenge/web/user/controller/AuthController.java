@@ -19,9 +19,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Public registration and login (REQ-API02).
- */
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/auth")

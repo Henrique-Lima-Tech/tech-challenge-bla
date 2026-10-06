@@ -41,7 +41,6 @@ export function ConfirmDialog({
       className={styles.dialog}
       aria-labelledby={titleId}
       onCancel={(event) => {
-        // Escape would close the native dialog on its own; only `open` decides.
         event.preventDefault()
         if (!pending) onCancel()
       }}

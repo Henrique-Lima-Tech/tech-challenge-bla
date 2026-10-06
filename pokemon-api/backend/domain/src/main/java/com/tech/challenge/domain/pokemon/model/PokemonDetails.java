@@ -2,10 +2,6 @@ package com.tech.challenge.domain.pokemon.model;
 
 import java.util.List;
 
-/**
- * Comprehensive data of one Pokémon (REQ-US02): image, core statistics,
- * narrative description and evolutionary lineage.
- */
 public record PokemonDetails(
         int id,
         String name,

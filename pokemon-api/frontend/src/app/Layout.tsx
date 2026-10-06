@@ -14,10 +14,6 @@ const AUTH_PAGES = new Set(['/login', '/register'])
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   cx(styles.navLink, isActive && styles.active)
 
-/**
- * Sign in for visitors (hidden on the sign in and sign up pages); the name and Sign out for
- * logged-in users.
- */
 function UserArea() {
   const { status, name, logout } = useAuth()
   const location = useLocation()
@@ -51,10 +47,6 @@ function UserArea() {
   )
 }
 
-/**
- * Moves the focus to `<main>` after a route change, so keyboard and screen reader users start at
- * the new page instead of the link they clicked. Nothing happens if the focus is already inside.
- */
 function useFocusMainOnNavigation() {
   const mainRef = useRef<HTMLElement>(null)
   const { pathname } = useLocation()

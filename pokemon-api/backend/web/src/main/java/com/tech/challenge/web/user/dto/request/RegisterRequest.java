@@ -14,7 +14,6 @@ public record RegisterRequest(
         @Size(min = 8, max = 72, message = "size must be between 8 and 72")
         @MaxUtf8Bytes(value = 72, message = "size must be at most 72 bytes") String password) {
 
-    /** Runs before Bean Validation. The password is never trimmed. */
     public RegisterRequest {
         name = name == null ? null : name.trim();
         email = email == null ? null : email.trim();

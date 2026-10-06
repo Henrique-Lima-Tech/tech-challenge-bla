@@ -18,10 +18,6 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import com.tech.challenge.infrastructure.user.security.token.JwtConfig;
 
-/**
- * Public and protected routes (D-07, D-11): everything that is not public needs a valid JWT.
- * Imports {@link JwtConfig} so every test that imports this class also gets the {@code JwtDecoder}.
- */
 @Configuration
 @Import(JwtConfig.class)
 public class SecurityConfig {
@@ -44,9 +40,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2
                         .jwt(Customizer.withDefaults())
-                        // A stale token must not turn a public request into a 401.
                         .bearerTokenResolver(request -> PUBLIC_ROUTES.matches(request) ? null : bearerTokenResolver.resolve(request))
-                        // GlobalExceptionHandler builds the 401 ProblemDetail, like every other error (D-17).
                         .authenticationEntryPoint((request, response, e) ->
                                 handlerExceptionResolver.resolveException(request, response, null, e)))
                 .build();

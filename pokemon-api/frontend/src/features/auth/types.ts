@@ -15,10 +15,6 @@ export type RegisterRequest = {
   password: string
 }
 
-/**
- * @param expiresIn seconds until the token expires
- * @param name the signed-in user's name (D-32)
- */
 export type TokenResponse = {
   accessToken: string
   tokenType: 'Bearer'

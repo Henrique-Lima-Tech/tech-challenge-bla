@@ -30,11 +30,6 @@ function Section({ title, children }: Readonly<{ title: string; children: ReactN
   )
 }
 
-/**
- * The "Add to My Pokémon" button: the US03 sync, which saves a copy to the user's My Pokémon.
- * The details do not say whether the user already has it, so the button is always shown and a
- * 409 becomes an info toast.
- */
 function SyncAction({ pokemon }: Readonly<{ pokemon: PokemonDetails }>) {
   const create = useCreateLocalPokemon()
 
@@ -67,9 +62,6 @@ function SyncAction({ pokemon }: Readonly<{ pokemon: PokemonDetails }>) {
   )
 }
 
-/**
- * @param backTo the list page the user came from, with its `?page`, or `/pokemon`
- */
 function PokemonDetailsView({
   pokemon,
   backTo,
@@ -124,16 +116,11 @@ function DetailSkeleton() {
   )
 }
 
-/**
- * Details of one Pokémon, by id or name. A 404 gets its own page; any other failure (the back end
- * or the PokéAPI down) shows `ErrorState` with a retry.
- */
 export function PokemonDetailPage() {
   const { idOrName = '' } = useParams()
   const location = useLocation()
   const { data: pokemon, isPending, isError, error, refetch } = usePokemonDetails(idOrName)
   const title = pokemon ? capitalize(pokemon.name) : 'Pokémon'
-  // null keeps the title that NotFoundPage sets.
   useDocumentTitle(isError && !pokemon ? null : title)
 
   if (isPending) return <DetailSkeleton />

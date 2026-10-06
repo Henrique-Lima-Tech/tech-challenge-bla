@@ -20,9 +20,6 @@ import com.tech.challenge.infrastructure.pokemon.persistence.entity.LocalPokemon
 import com.tech.challenge.infrastructure.pokemon.persistence.mapper.LocalPokemonPersistenceMapper;
 import com.tech.challenge.infrastructure.pokemon.persistence.repository.LocalPokemonJpaRepository;
 
-/**
- * The domain invariants stop every other constraint violation before the database, so it is simulated here.
- */
 @ExtendWith(MockitoExtension.class)
 class LocalPokemonPersistenceAdapterTranslationTest {
 

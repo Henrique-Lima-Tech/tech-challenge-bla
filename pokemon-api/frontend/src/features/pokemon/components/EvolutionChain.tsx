@@ -10,7 +10,6 @@ function StagePokemon({
   currentName,
 }: Readonly<{ stage: EvolutionStage; currentName: string }>) {
   const location = useLocation()
-  // Passed on, so "Back to list" still returns to the same list page.
   const backState: unknown = location.state
   const name = capitalize(stage.name)
   const content = (
@@ -35,9 +34,6 @@ function StagePokemon({
   )
 }
 
-/**
- * One stage and, recursively, every stage it evolves into, with one list item per branch.
- */
 function Stage({ stage, currentName }: Readonly<{ stage: EvolutionStage; currentName: string }>) {
   return (
     <div className={styles.stage}>
@@ -61,10 +57,6 @@ function Stage({ stage, currentName }: Readonly<{ stage: EvolutionStage; current
   )
 }
 
-/**
- * @param chain the first stage of the chain
- * @param currentName the Pokémon on screen: highlighted and not a link
- */
 export function EvolutionChain({
   chain,
   currentName,

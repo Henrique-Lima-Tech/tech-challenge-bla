@@ -6,7 +6,6 @@ import java.net.URISyntaxException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-/** Null is valid: the field is optional. */
 public class HttpUrlValidator implements ConstraintValidator<HttpUrl, String> {
 
     @Override

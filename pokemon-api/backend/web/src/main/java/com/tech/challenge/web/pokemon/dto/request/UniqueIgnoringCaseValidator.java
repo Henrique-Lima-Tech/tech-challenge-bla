@@ -7,7 +7,6 @@ import java.util.Objects;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-/** Null elements are skipped: {@code @NotBlank} on the element reports them. */
 public class UniqueIgnoringCaseValidator implements ConstraintValidator<UniqueIgnoringCase, List<String>> {
 
     @Override

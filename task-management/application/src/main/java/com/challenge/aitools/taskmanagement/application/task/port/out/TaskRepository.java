@@ -12,9 +12,6 @@ public interface TaskRepository {
 
     Optional<Task> findByIdAndOwnerId(Long id, Long ownerId);
 
-    /**
-     * @param status when null, every status is returned
-     */
     Page<Task> findByOwnerId(Long ownerId, TaskStatus status, int page, int size);
 
     void delete(Task task);

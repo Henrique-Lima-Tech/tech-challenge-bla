@@ -37,10 +37,6 @@ import com.tech.challenge.domain.pokemon.model.PokemonSummary;
 
 import tools.jackson.databind.json.JsonMapper;
 
-/**
- * Two users through the real chain (security, service, JPA, Flyway on H2 in memory): each one only sees, changes and
- * deletes their own copies (D-31).
- */
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
@@ -77,7 +73,6 @@ class LocalPokemonOwnershipIntegrationTest {
                 "https://img/143.png", "Sleeping Pokémon", new BigDecimal("460.0"), List.of("immunity"))));
     }
 
-    /** The database lives as long as the JVM: each test starts without copies of these two users. */
     @AfterEach
     void removeCopies() {
         final var copies = "(SELECT id FROM local_pokemon WHERE user_id IN (?, ?))";

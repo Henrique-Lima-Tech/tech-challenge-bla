@@ -1,9 +1,5 @@
 import type { FieldError, ProblemDetail } from './types'
 
-/**
- * A failed request. `status` is the HTTP status, or 0 when the server could not be reached.
- * `fieldErrors` is only filled by a 400 that names the invalid fields.
- */
 export class ApiError extends Error {
   readonly status: number
   readonly fieldErrors: FieldError[]
@@ -25,9 +21,6 @@ export function isApiError(error: unknown): error is ApiError {
   return error instanceof ApiError
 }
 
-/**
- * Message used when the response has neither a `detail` nor a `title`.
- */
 export function defaultMessage(status: number): string {
   if (status === 0) return 'Could not connect to the server.'
   if (status === 400) return 'The data sent is invalid.'

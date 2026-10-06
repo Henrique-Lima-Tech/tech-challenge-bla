@@ -8,9 +8,6 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-/**
- * Bean Validation has no ceiling in bytes, and BCrypt only considers the first 72 bytes of a password.
- */
 @Documented
 @Constraint(validatedBy = MaxUtf8BytesValidator.class)
 @Target({ java.lang.annotation.ElementType.FIELD, java.lang.annotation.ElementType.PARAMETER,

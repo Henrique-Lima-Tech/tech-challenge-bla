@@ -13,11 +13,10 @@ describe('env', () => {
     expect(env.apiUrl).toBe('http://localhost:8080')
   })
 
-  it('turns the mocks on only when VITE_USE_MOCKS is "true"', async () => {
+  it('uses VITE_API_URL when it is set', async () => {
     vi.stubEnv('VITE_API_URL', 'https://api.pokedex.dev')
-    vi.stubEnv('VITE_USE_MOCKS', 'true')
     vi.resetModules()
     const { env } = await import('./env')
-    expect(env).toEqual({ apiUrl: 'https://api.pokedex.dev', useMocks: true })
+    expect(env.apiUrl).toBe('https://api.pokedex.dev')
   })
 })

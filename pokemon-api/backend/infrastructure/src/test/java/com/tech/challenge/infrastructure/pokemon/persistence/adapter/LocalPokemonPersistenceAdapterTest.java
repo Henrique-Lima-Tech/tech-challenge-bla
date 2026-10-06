@@ -43,7 +43,6 @@ class LocalPokemonPersistenceAdapterTest {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    /** Idempotent, because the tests outside the test transaction commit these users. */
     @BeforeEach
     void createUsers() {
         for (final long id : List.of(ASH, MISTY)) {
@@ -123,10 +122,6 @@ class LocalPokemonPersistenceAdapterTest {
                 .isInstanceOf(PokemonAlreadySyncedException.class);
     }
 
-    /**
-     * Without a test transaction the adapter has to open its own: the two {@code @ElementCollection} lists are
-     * lazy, and the mapper reads them after the repository call. It commits, so it uses its own {@code pokeApiId}.
-     */
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void shouldReturnEveryFieldAndListOrderWhenRecordIsFoundById() {
@@ -237,10 +232,6 @@ class LocalPokemonPersistenceAdapterTest {
         assertThat(page.totalPages()).isEqualTo(1);
     }
 
-    /**
-     * Outside the test transaction, for the same reason as
-     * {@link #shouldReturnEveryFieldAndListOrderWhenRecordIsFoundById()}.
-     */
     @Test
     @Transactional(propagation = Propagation.NOT_SUPPORTED)
     void shouldLoadAbilitiesAndTagsWhenPageIsRead() {
@@ -368,7 +359,6 @@ class LocalPokemonPersistenceAdapterTest {
                 saved.id())).isEqualTo(1);
     }
 
-    /** Tests that run without the rollback of a test transaction remove what they committed. */
     private void deleteCommitted(final long id) {
         jdbcTemplate.update("DELETE FROM local_pokemon_abilities WHERE local_pokemon_id = ?", id);
         jdbcTemplate.update("DELETE FROM local_pokemon_internal_tags WHERE local_pokemon_id = ?", id);

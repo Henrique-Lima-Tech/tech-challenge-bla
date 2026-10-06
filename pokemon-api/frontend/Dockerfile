@@ -6,9 +6,8 @@ RUN npm ci
 
 COPY . .
 ARG VITE_API_URL=""
-ENV VITE_API_URL=$VITE_API_URL \
-    VITE_USE_MOCKS=false
-RUN npm run build && rm -f dist/mockServiceWorker.js
+ENV VITE_API_URL=$VITE_API_URL
+RUN npm run build
 
 FROM nginx:1.27-alpine
 

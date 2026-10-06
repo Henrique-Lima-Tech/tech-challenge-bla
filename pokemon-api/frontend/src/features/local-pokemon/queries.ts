@@ -3,10 +3,6 @@ import { isApiError } from '../../shared/api/apiError'
 import { localPokemonApi } from './api'
 import type { LocalPokemonCreate, LocalPokemonFilters, LocalPokemonUpdate } from './types'
 
-/**
- * Every key starts with `local-pokemon`, so one invalidation refreshes the lists and the details
- * after a change.
- */
 const localPokemonKeys = {
   all: ['local-pokemon'] as const,
   list: (filters: LocalPokemonFilters) => [...localPokemonKeys.all, 'list', filters] as const,
@@ -21,9 +17,6 @@ export function useLocalPokemonList(filters: LocalPokemonFilters) {
   })
 }
 
-/**
- * @param enabled `false` skips the request, for an invalid id
- */
 export function useLocalPokemon(id: number, enabled = true) {
   return useQuery({
     queryKey: localPokemonKeys.details(id),
@@ -59,7 +52,6 @@ export function useDeleteLocalPokemon() {
     mutationFn: (id: number) => localPokemonApi.remove(id),
     onSuccess: invalidate,
     onError: (error) => {
-      // Already deleted elsewhere: refresh so the stale row disappears.
       if (isApiError(error) && error.status === 404) return invalidate()
     },
   })

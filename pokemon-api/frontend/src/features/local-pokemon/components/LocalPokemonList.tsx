@@ -38,10 +38,6 @@ function Tags({ tags }: Readonly<{ tags: string[] }>) {
   )
 }
 
-/**
- * The `aria-label` names the Pokémon, so a screen reader does not hear a row of identical "Edit"
- * and "Delete" buttons.
- */
 function Actions({
   pokemon,
   onDelete,
@@ -67,10 +63,6 @@ function Actions({
   )
 }
 
-/**
- * The local list on desktop. The name links to the public details by `pokeApiId`; Edit and
- * Delete use the local `id`.
- */
 export function LocalPokemonTable({ items, onDelete }: Readonly<ListProps>) {
   return (
     <div className={styles.tableWrapper}>
@@ -108,9 +100,6 @@ export function LocalPokemonTable({ items, onDelete }: Readonly<ListProps>) {
   )
 }
 
-/**
- * The same rows as cards, for screens under 768px.
- */
 export function LocalPokemonCards({ items, onDelete }: Readonly<ListProps>) {
   return (
     <ul className={styles.cards}>

@@ -26,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class LocalPokemonPersistenceAdapter implements LocalPokemonRepositoryPort {
 
-    /** Name given in {@code V3__add_owner_to_local_pokemon.sql}. */
     private static final String POKE_API_ID_CONSTRAINT = "uk_local_pokemon_user_poke_api_id";
 
     private final LocalPokemonJpaRepository localPokemonJpaRepository;
@@ -44,14 +43,12 @@ public class LocalPokemonPersistenceAdapter implements LocalPokemonRepositoryPor
             if (!isPokeApiIdConstraint(e)) {
                 throw e;
             }
-            // The cause is left out on purpose: the database message contains the rejected values.
             log.warn("Saving local Pokemon failed: pokeApiId {} already synced by user {}", pokemon.pokeApiId(),
                     userId);
             throw new PokemonAlreadySyncedException();
         }
     }
 
-    /** The lists are lazy {@code @ElementCollection}s: the mapper reads them inside this transaction. */
     @Override
     @Transactional(readOnly = true)
     public Optional<LocalPokemon> findById(final long userId, final long id) {

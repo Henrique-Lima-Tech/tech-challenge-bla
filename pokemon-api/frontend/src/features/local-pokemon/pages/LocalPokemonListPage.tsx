@@ -19,17 +19,12 @@ import styles from './LocalPokemonListPage.module.css'
 
 const PAGE_SIZE = 20
 
-/**
- * The logged-in user's own Pokémon (D-31): a table on desktop, cards below 768px, and delete
- * behind a confirmation dialog. The page number lives in the URL (`?page=2`).
- */
 export function LocalPokemonListPage() {
   useDocumentTitle('My Pokémon')
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const [searchParams, setSearchParams] = useSearchParams()
   const page = readPageParam(searchParams)
   const { data, isPending, isError, error, refetch, isPlaceholderData } = useLocalPokemonList({
-    // The URL page is 1-based; the API page is 0-based.
     page: page - 1,
     size: PAGE_SIZE,
   })
@@ -43,7 +38,6 @@ export function LocalPokemonListPage() {
     deletion.mutate(toDelete.id, {
       onSuccess: () => notify.success(`${deletedName} deleted`),
       onError: (deleteError) => {
-        // Already deleted elsewhere; the hook refreshes the list anyway.
         if (isApiError(deleteError) && deleteError.status === 404) {
           notify.info('This Pokémon had already been deleted')
         } else {

@@ -9,10 +9,6 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-/**
- * No two texts of a list are equal ignoring case (D-27, {@code internalTags}). Hibernate Validator's
- * {@code @UniqueElements} compares with {@code equals}.
- */
 @Documented
 @Constraint(validatedBy = UniqueIgnoringCaseValidator.class)
 @Target(ElementType.FIELD)

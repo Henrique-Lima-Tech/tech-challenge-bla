@@ -4,9 +4,6 @@ import { findMockPokemon, spriteUrl } from './data'
 
 export type MockUser = User & { password: string }
 
-/**
- * A local Pokémon and the user who synced it (D-31). The owner never goes into a response.
- */
 export type MockLocalPokemon = LocalPokemon & { userId: number }
 
 type MockDb = {
