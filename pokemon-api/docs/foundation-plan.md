@@ -15,11 +15,11 @@
 
 ## 2. AI infrastructure
 
-`CLAUDE.md`, `AGENTS.md` and `.claude/` live at the repository root, one level above `pokemon-api/`; the other files below are inside `pokemon-api/`.
+`CLAUDE.md` and `.claude/` live at the repository root, one level above `pokemon-api/`; the other files below are inside `pokemon-api/`.
 
 | File | Purpose |
 |---|---|
-| `CLAUDE.md` (+ `AGENTS.md` → symlink) | Global rules loaded in every session: sources of truth, stack, scope, English, TDD, security, Definition of Done |
+| `CLAUDE.md` | Global rules loaded in every session: sources of truth, stack, scope, English, TDD, security, Definition of Done |
 | `docs/challenge/requirements.md` | Requirements with IDs, literal PDF text, marked interpretations and a "not asked for by the PDF" list |
 | `docs/challenge/pokeapi.md` | Only the 4 PokéAPI endpoints and fields used |
 | `docs/decisions.md` | Approved decisions and the out-of-scope list |

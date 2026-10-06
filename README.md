@@ -9,4 +9,4 @@ Two independent Java 25 + Spring Boot 4 projects, both built with Clean Architec
 
 Both backends listen on port 8080, so run one at a time or start the second one on another port (see its README).
 
-`CLAUDE.md` (and `AGENTS.md`, which links to it) and `.claude/` hold the rules and commands used by the AI agent that implemented the Pokémon API.
+`CLAUDE.md` and `.claude/` hold the rules and commands used by the AI agent that implemented the Pokémon API.

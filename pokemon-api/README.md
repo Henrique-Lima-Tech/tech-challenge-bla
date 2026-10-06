@@ -58,7 +58,7 @@ pokemon-api/
 └── README.md             This file
 ```
 
-The rules and commands used by the AI agent that implemented each stage are at the repository root: `CLAUDE.md` (`AGENTS.md` links to it) and `.claude/`.
+The rules and commands used by the AI agent that implemented each stage are at the repository root: `CLAUDE.md` and `.claude/`.
 
 ---
 
